@@ -16,5 +16,11 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
+	int n, a, b;
+	cin >> n >> a >> b; a--; b--;
+	string v;
+	cin >> v;
+	if(v[a] == v[b]) cout << "0\n";
+	else cout << "1\n";
   return 0;
 }
