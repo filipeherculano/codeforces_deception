@@ -12,9 +12,12 @@ typedef long double ld;
 
 const int INF = 0x3f3f3f3f;
 const double EPS = 1e-9;
-
 using namespace std;
 
 int main(){
-  return 0;
+	ll n;
+	cin >> n;
+	if(n == 1) cout << "-1\n";
+	else printf("%lld %lld %lld\n", n, n+1LL, n*(n+1LL));  
+	return 0;
 }

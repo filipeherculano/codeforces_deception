@@ -16,5 +16,9 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
+	ll n, k, num, resto = 0;
+	cin >> n >> k; k--;
+	for(num = 1; k % (1LL << num) != resto; num++) resto += (1LL << (num-1));
+	cout << num << endl;
   return 0;
 }
