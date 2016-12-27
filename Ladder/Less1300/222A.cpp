@@ -16,7 +16,15 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	ios_base::sync_with_stdio(0);
-
-  return 0;
+	int n, k;
+	cin >> n >> k; k--;
+	int v[n];
+	REP(i, n) cin >> v[i];
+	int idx;
+	for(idx = n-1; idx >= 0; idx--)
+		if(v[idx] != v[n-1])
+			break;
+	if(idx < k) cout << idx+1 << endl;
+	else cout << "-1\n";
+	return 0;
 }
