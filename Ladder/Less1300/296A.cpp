@@ -16,9 +16,19 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
+	int n, MAX = 1;
+	cin >> n;
+	vector<int> v(n), cnt(n, 0);
+	REP(i, n) cin >> v[i];
+	sort(all(v));
+	cnt[0] = 1;
+	for(int i = 1; i < n; i++){
+		if(v[i] == v[i-1]) cnt[i] = 1 + cnt[i-1];
+		else cnt[i] = 1;
+		MAX = max(MAX, cnt[i]);
+	}
+	if(MAX > (n+1)/2) cout << "NO\n";
+	else cout << "YES\n";	
   return 0;
 }

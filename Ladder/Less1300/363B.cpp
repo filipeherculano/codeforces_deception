@@ -16,9 +16,22 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
+	int n, k;
+	cin >> n >> k;
+	int v[n];
+	REP(i, n) cin >> v[i];
+	int j = 0, MIN = 0, temp;
+	REP(i, k) MIN += v[i];
+	temp = MIN;
+	for(int i = j+1; i+k <= n; i++){
+		temp -= v[i-1];
+		temp += v[i+k-1];
+		if(temp < MIN){
+			j = i;
+			MIN = temp;
+		}
+	}
+	cout << j+1 << endl;
   return 0;
 }

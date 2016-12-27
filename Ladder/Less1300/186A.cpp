@@ -16,9 +16,23 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
+	int miss = 0;
+	string a, b;
+	getline(cin, a);
+	getline(cin, b);
+	if(a.size() != b.size()) cout << "NO\n";
+	else{
+		REP(i, a.size())
+			if(a[i] != b[i])
+				miss++;
+		if(miss > 2) cout << "NO\n";
+		else{
+			sort(all(a));
+			sort(all(b));
+			if(a == b) cout << "YES\n";
+			else cout << "NO\n";
+		}
+	}
   return 0;
 }

@@ -16,9 +16,15 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
-  return 0;
+	int y, k, n;
+	cin >> y >> k >> n;
+	bool found = false;
+	for(int x = (k*(1+(y/k))) - y; x + y <= n; x += k){
+		cout << x << " ";
+		found = true;
+	}
+	if(found == false) cout << "-1";
+	cout << endl;  
+	return 0;
 }

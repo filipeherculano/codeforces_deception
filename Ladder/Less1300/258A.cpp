@@ -16,9 +16,16 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
+	int zero = -1, one = -1;
+	string bit;
+	cin >> bit;
+	REP(i, bit.size()) {
+		if(bit[i] == '0' && zero == -1) zero = i;
+		if(bit[i] == '1' && one == -1) one = i; 
+	}
+	if(zero != -1) bit.erase(bit.begin()+zero);
+	else bit.erase(bit.begin()+one);
+	cout << bit << endl;
   return 0;
 }

@@ -16,9 +16,21 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	//freopen("input.txt", "rt", stdin);
-	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-
+	int n, idx, left = INF, right = -INF;
+	cin >> n;
+	int mat[n][2];
+	REP(i, n){
+		cin >> mat[i][0] >> mat[i][1];
+		left = min(left, mat[i][0]);
+		right = max(right, mat[i][1]);
+	}
+	REP(i, n){
+		if(mat[i][0] <= left && right <= mat[i][1]){
+			cout << i+1 << endl;
+			return 0;
+		}
+	}
+	cout << "-1\n";
   return 0;
 }
