@@ -16,16 +16,32 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
+	//freopen("input.txt", "rt", stdin);
+	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-	int n, aux;
+	int n, bill;
 	cin >> n;
-	int v[3] = {0};
+	bool ok = true;
+	int v[4] = {0};
 	REP(i, n){
-		cin >> aux;
-		aux /= 100;
-		v[aux]++;
+		cin >> bill;
+		if(bill == 25) v[1]++;
+		else if(bill == 50){
+			if(v[1]) {
+				v[1]--;
+				v[2]++;
+			} else ok = false;
+		} else{
+			if(v[1] && v[2]){
+				v[1]--;
+				v[2]--;
+				v[3]++;		
+			} else if(v[1] >= 3){
+				v[1] -= 3;
+				v[3]++;
+			} else ok = false;
+		}
 	}
-	if(v[1]&1 || (v[1] == 0 && )) cout << "NO\n";
-	else cout << "YES\n";
+	printf("%s", ok ? "YES\n":"NO\n");
   return 0;
 }

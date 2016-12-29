@@ -16,20 +16,21 @@ const double EPS = 1e-9;
 using namespace std;
 
 int main(){
-	freopen("input.txt", "rt", stdin);
-	freopen("output.txt", "wt", stdout);
+	//freopen("input.txt", "rt", stdin);
+	//freopen("output.txt", "wt", stdout);
 	ios_base::sync_with_stdio(0);
-	int n, m;
-	cin >> n >> m;
-	for(int i = 0; i < max(n, m); i++){
-		if(n > m) {
-			if(i < min(n,m)) cout << "BG";
-			else cout << "B";
-		} else {
-			if(i < min(n,m)) cout << "GB";
-			else cout << "G";
+	int n, t = -INF;
+	vector<int> v(3);
+	cin >> n >> v[0] >> v[1] >> v[2];
+	sort(all(v));
+	for(int x = 0; x*v[0] <= n; x++){
+		for(int y = 0; (x*v[0])+(y*v[1]) <= n; y++){
+			if((n - x*v[0] - y*v[1]) % v[2] == 0){
+				int z = (n - x*v[0] - y*v[1]) / v[2];
+				t = max(t, x+y+z);		
+			}
 		}
 	}
-	cout << endl;
+	cout << t << endl;
 	return 0;
 }
