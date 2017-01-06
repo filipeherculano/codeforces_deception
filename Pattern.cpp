@@ -18,7 +18,6 @@ using namespace std;
 int main(){
 	//freopen("input.txt", "rt", stdin);
 	//freopen("output.txt", "wt", stdout);
-	ios_base::sync_with_stdio(0);
 
   return 0;
 }
