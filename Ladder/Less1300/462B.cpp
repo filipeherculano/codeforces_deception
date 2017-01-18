@@ -18,14 +18,19 @@ using namespace std;
 int main(){
 	//freopen("input.txt", "rt", stdin);
 	//freopen("output.txt", "wt", stdout);
-	int n, med = 0;
-	cin >> n;
-	int v[n];
-	REP(i,n) {
-		cin >> v[i];
-		med += v[i];
+	ll k, n, cnt = 0;
+	vector<ll> vi;
+	ll buc[27] = {0};
+	scanf("%lld %lld%*c", &n, &k);
+	string line;
+	getline(cin,line);
+	REP(i,line.size()) buc[line[i]-'A']++;
+	REP(i,27) if(buc[i]) vi.pb(buc[i]);
+	sort(all(vi));
+	for(int i = vi.size()-1; i >= 0 && k; i--){
+		cnt += min(vi[i], k)*min(vi[i], k);
+		k -= min(vi[i],k);
 	}
-	if(med % n == 0) cout << n << endl;
-	else cout << n-1 << endl;
+	cout << cnt << endl;
 	return 0;
 }
