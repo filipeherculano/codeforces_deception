@@ -18,6 +18,11 @@ using namespace std;
 int main(){
 	//freopen("input.txt", "rt", stdin);
 	//freopen("output.txt", "wt", stdout);
-
+	//ios_base::sync_with_stdio(0);
+	llu n, base = 2;
+	cin >> n;
+	cout << "2\n";
+	for(llu k = 3; k <= n+1; k++)
+		printf("%llu\n", (k*k*(k-1)) - (k-2));
   return 0;
 }
