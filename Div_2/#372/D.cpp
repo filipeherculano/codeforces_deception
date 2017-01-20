@@ -18,18 +18,31 @@ const double EPS = 1e-9;
 using namespace std;
 
 ll n, m, L, s, t, cur = 0;
-vector<ll> vertex[MAXN], edge[MAXM], pre[MAXM], path;
-ll dist[MAXN];
+vector<ll> vertex[MAXN], edge[MAXM];
+ll dist[MAXN], pre[MAXM];
 bool vis[MAXM];
 
+void backtrack(ll idx, ll w, ll last){
+		while(idx != s){
+				if(edge[pre[idx]][2] == 0){
+						last = pre[idx];
+						edge[pre[idx]][2] = 1;
+						w--;
+				} else w -= edge[pre[idx]][2];
+				idx = (idx == edge[pre[idx]][0] ? edge[pre[idx]][1]:edge[pre[idx]][0]);
+		}
+		edge[last][2] += w;
+}
+
 void __dijkstra(){
-	priority_queue< pair<ll,ll>, vector< pair<ll,ll> >, greater< pair<ll,ll> > > pq; // dist, vertex
-	pq.push(make_pair(0,s));
-	while(!pq.empty()){
-		pair<ll,ll> front = pq.top();
+		priority_queue< pair<ll,ll>, vector< pair<ll,ll> >, greater< pair<ll,ll> > > pq; // dist, vertex
+		pq.push(make_pair(0,s));
+		while(!pq.empty()){
+				pair<ll,ll> front = pq.top();
 		ll d = front.first, u = front.second;
 		pq.pop();
 		if(d > dist[u]) continue;
+		if(u == t) return;
 		REP(i, vertex[u].size()){
 			pair<ll,ll> v = {edge[vertex[u][i]][2], (u == edge[vertex[u][i]][0] ? edge[vertex[u][i]][1]:edge[vertex[u][i]][0]) };
 			if(edge[vertex[u][i]][2] == 0) v.first = 1;
@@ -53,6 +66,7 @@ void _dijkstra(){
 		ll d = front.first, u = front.second;
 		pq.pop();
 		if(d > dist[u]) continue;
+		if(u == t) return;
 		REP(i, vertex[u].size()){
 			pair<ll,ll> v = {edge[vertex[u][i]][2], (u == edge[vertex[u][i]][0] ? edge[vertex[u][i]][1]:edge[vertex[u][i]][0]) };
 			if(!vis[vertex[u][i]]){
@@ -91,38 +105,20 @@ int main(){
 		REP(i,m) printf("%lld %lld %lld\n", edge[i][0], edge[i][1], (edge[i][2] == 0 ? INF:edge[i][2]));
 		return 0;
 	}
-	REP(i,cur) vis[i] = false;
-	for(ll i = 0; i < n; i++) dist[i] = INF;
-	dist[s] = 0;
-	__dijkstra();
-	if(dist[t] > L){
-		printf("NO\n");
-		return 0;
-	}
+	bool first = true;
+	do{
+			REP(i,cur) vis[i] = false;
+			for(ll i = 0; i < n; i++) dist[i] = INF;
+			dist[s] = 0;
+			__dijkstra();
+			if(dist[t] <= L) backtrack(t,L,pre[t]);
+			if(first && dist[t] > L){
+					printf("NO\n");
+					return 0;
+			}
+			first = false;
+	} while(dist[t] < L);
 	printf("YES\n");
-	backtrack(t,L,-1);
-	/*ll idx = t, last;
-	while(idx != s){
-		if(edge[pre[idx]][2] == 0){
-			last = pre[idx];
-			edge[pre[idx]][2] = 1;
-			L--;
-		} else L -= edge[pre[idx]][2];
-		idx = (idx == edge[pre[idx]][0] ? edge[pre[idx]][1]:edge[pre[idx]][0]);
-	}
-	edge[last][2] += L;*/
 	REP(i,m) printf("%lld %lld %lld\n", edge[i][0], edge[i][1], (edge[i][2] == 0 ? INF:edge[i][2]));
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
